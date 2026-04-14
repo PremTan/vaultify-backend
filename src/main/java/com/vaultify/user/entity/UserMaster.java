@@ -1,0 +1,53 @@
+package com.vaultify.user.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "app_user")
+@NamedQuery(name = "UserMaster.findAll", query = "SELECT u FROM UserMaster u")
+public class UserMaster extends Auditable implements Serializable, EntityMarker{
+
+    private static final long serialVersionUID = -3537808561436160156L;
+
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "user_id", unique = true, nullable = false)
+    private Long userId;
+
+    @Column(nullable = false, length = 255)
+    private String email;
+
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @Column(name = "first_name", length = 255)
+    private String firstName;
+
+    @Column(name = "last_name", length = 255)
+    private String lastName;
+
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+
+    @Column(name = "mobile_number", nullable = false, length = 15)
+    private String mobileNumber;
+
+    @Enumerated(EnumType.STRING)
+    private GenderEnums gender;
+
+    @Column(nullable = false, length = 250)
+    private String password;
+
+    private String profilePicture;
+}
