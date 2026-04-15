@@ -4,6 +4,7 @@ import com.vaultify.common.entity.Auditable;
 import com.vaultify.common.dto.EntityMarker;
 import com.vaultify.common.entity.CountrycodeMaster;
 import com.vaultify.common.enums.GenderEnums;
+import com.vaultify.common.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,9 @@ public class UserMaster extends Auditable implements Serializable, EntityMarker 
     @Column(name = "first_name", length = 255)
     private String firstName;
 
+    @Column(name="user_name", length = 255)
+    private String Username;
+
     @Column(name = "last_name", length = 255)
     private String lastName;
 
@@ -57,5 +61,9 @@ public class UserMaster extends Auditable implements Serializable, EntityMarker 
     @ManyToOne(fetch = LAZY, cascade = { DETACH })
     @JoinColumn(name = "country_code_id", nullable = false)
     private CountrycodeMaster countrycodeMaster;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private UserStatus status;
 
 }
