@@ -1,5 +1,9 @@
 package com.vaultify.user.entity;
 
+import com.vaultify.common.entity.Auditable;
+import com.vaultify.common.dto.EntityMarker;
+import com.vaultify.common.entity.CountrycodeMaster;
+import com.vaultify.common.enums.GenderEnums;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +12,8 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import static jakarta.persistence.CascadeType.DETACH;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Setter
@@ -16,7 +22,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "app_user")
 @NamedQuery(name = "UserMaster.findAll", query = "SELECT u FROM UserMaster u")
-public class UserMaster extends Auditable implements Serializable, EntityMarker{
+public class UserMaster extends Auditable implements Serializable, EntityMarker {
 
     private static final long serialVersionUID = -3537808561436160156L;
 
@@ -27,9 +33,6 @@ public class UserMaster extends Auditable implements Serializable, EntityMarker{
 
     @Column(nullable = false, length = 255)
     private String email;
-
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
 
     @Column(name = "first_name", length = 255)
     private String firstName;
@@ -50,4 +53,9 @@ public class UserMaster extends Auditable implements Serializable, EntityMarker{
     private String password;
 
     private String profilePicture;
+
+    @ManyToOne(fetch = LAZY, cascade = { DETACH })
+    @JoinColumn(name = "country_code_id", nullable = false)
+    private CountrycodeMaster countrycodeMaster;
+
 }

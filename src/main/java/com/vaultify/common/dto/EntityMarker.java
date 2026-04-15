@@ -1,4 +1,4 @@
-package com.vaultify.user.entity;
+package com.vaultify.common.dto;
 
 public interface EntityMarker {
 }
