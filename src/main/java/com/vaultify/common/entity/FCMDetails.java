@@ -1,9 +1,12 @@
-package com.vaultify.user.entity;
+package com.vaultify.common.entity;
 
+import com.vaultify.common.dto.EntityMarker;
+import com.vaultify.common.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -14,7 +17,7 @@ import static java.time.LocalDateTime.now;
 @Entity
 @Table(name = "fcm_details")
 @NamedQuery(name = "FCMDetails.findAll", query = "SELECT p FROM FCMDetails p")
-public class FCMDetails {
+public class FCMDetails implements Serializable, EntityMarker {
 
     private static final long serialVersionUID = -5526771250610713578L;
 
